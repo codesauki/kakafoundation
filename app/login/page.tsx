@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Lock, AlertCircle } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,7 +18,6 @@ export default function AdminLoginPage() {
     setError('');
 
     const result = await signIn('credentials', {
-      email,
       password,
       redirect: false,
     });
@@ -27,7 +25,7 @@ export default function AdminLoginPage() {
     if (result?.ok) {
       router.push('/admin');
     } else {
-      setError('Invalid email or password.');
+      setError('Invalid password. Too many attempts will temporarily block access.');
       setLoading(false);
     }
   };
@@ -54,22 +52,6 @@ export default function AdminLoginPage() {
                 <p className="text-red-700 text-sm">{error}</p>
               </div>
             )}
-
-            <div>
-              <label className="block text-sm font-medium text-navy-700 mb-2">
-                <Mail className="w-4 h-4 inline mr-2" />
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@kowanamunejoundation.org"
-                className="w-full px-4 py-2.5 border border-navy-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-navy-800 placeholder-navy-400"
-                disabled={loading}
-                required
-              />
-            </div>
 
             <div>
               <label className="block text-sm font-medium text-navy-700 mb-2">
@@ -107,11 +89,9 @@ export default function AdminLoginPage() {
 
           <div className="mt-6 pt-6 border-t border-navy-100">
             <p className="text-center text-navy-500 text-xs">
-              Default credentials for demo:
+              Admin password is configured via <span className="text-navy-600 font-mono">ADMIN_PASSWORD</span> environment variable.
               <br />
-              <span className="text-navy-600 font-mono">admin@kowanamunejoundation.org</span>
-              <br />
-              <span className="text-navy-600 font-mono">Admin@KNF2026!</span>
+              Max 5 attempts per 15 minutes.
             </p>
           </div>
         </div>

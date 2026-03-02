@@ -1,10 +1,9 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, Copy, ArrowRight, Phone, Mail } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-export const metadata: Metadata = { title: 'Application Submitted Successfully' };
+export const dynamic = 'force-dynamic';
 
 export default function SuccessPage({ searchParams }: { searchParams: { ref?: string } }) {
   const ref = searchParams.ref ?? 'KNF-UNKNOWN';
