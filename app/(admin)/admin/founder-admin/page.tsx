@@ -1,2 +1,3 @@
-import FounderEditor from '@/components/admin/FounderEditor';
-export default function Page() { return <FounderEditor />; }
+export const dynamic = 'force-dynamic';
+
+import FounderEditor from '@/components/admin/FounderEditor'; export default function Page() { return <FounderEditor />; }

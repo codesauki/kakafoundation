@@ -1,4 +1,3 @@
-import ApplicationsManager from '@/components/admin/ApplicationsManager';
-export default function AdminApplicationsPage() {
-  return <ApplicationsManager />;
-}
+export const dynamic = 'force-dynamic';
+
+import ApplicationsManager from '@/components/admin/ApplicationsManager'; export default function AdminApplicationsPage() {   return <ApplicationsManager />; }
