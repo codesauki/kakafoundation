@@ -1,0 +1,103 @@
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import CTASection from '@/components/sections/CTASection';
+import { prisma } from '@/lib/db';
+
+interface Props { params: { slug: string } }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  try {
+    const prog = await prisma.programme.findUnique({ where: { slug: params.slug } });
+    if (!prog) return { title: 'Programme Not Found' };
+    return { title: prog.title, description: prog.tagline };
+  } catch { return { title: 'Programme' }; }
+}
+
+export default async function ProgrammePage({ params }: Props) {
+  let programme;
+  try {
+    programme = await prisma.programme.findUnique({ where: { slug: params.slug } });
+  } catch { programme = null; }
+
+  if (!programme) notFound();
+
+  return (
+    <>
+      <Navbar />
+      <main>
+        {/* Hero */}
+        <section className="relative pt-32 pb-20 bg-navy-gradient overflow-hidden">
+          <div className="absolute inset-0 bg-noise opacity-30" />
+          <div className="container-xl relative z-10">
+            <Link href="/programmes" className="inline-flex items-center gap-2 text-teal-300 hover:text-white text-sm font-medium mb-8 transition-colors">
+              <ArrowLeft className="w-4 h-4" /> Back to Programmes
+            </Link>
+            <div className="flex items-center gap-5 mb-6">
+              <div className="text-5xl">{programme.icon}</div>
+              <div>
+                <div className="text-teal-400 text-xs font-semibold uppercase tracking-widest mb-1">Programme</div>
+                <h1 className="font-display text-4xl sm:text-5xl text-white leading-tight">{programme.title}</h1>
+              </div>
+            </div>
+            <p className="text-white/75 text-xl max-w-2xl">{programme.tagline}</p>
+            {programme.impact && (
+              <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full text-gold-300 text-sm font-semibold">
+                📊 {programme.impact}
+              </div>
+            )}
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        </section>
+
+        {/* Content */}
+        <section className="section-pad bg-white">
+          <div className="container-lg">
+            <div className="grid lg:grid-cols-3 gap-12">
+              <div className="lg:col-span-2">
+                <div className="divider-teal mb-8" />
+                <div className="prose-foundation">
+                  {programme.description.split('\n\n').map((para: string, i: number) => (
+                    <p key={i} className="text-navy-600 leading-relaxed mb-5 text-lg">{para}</p>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-5">
+                <div className="card bg-navy-gradient p-6">
+                  <h3 className="font-display text-lg text-white mb-4">Apply for Support</h3>
+                  <p className="text-navy-300 text-sm mb-4">Benefit from our Education & Scholarship programme directly through our online portal.</p>
+                  <Link href="/apply" className="btn-gold w-full justify-center text-sm">Apply Now</Link>
+                </div>
+                <div className="card p-6">
+                  <h3 className="font-display text-lg text-navy-800 mb-4">All Programmes</h3>
+                  <div className="space-y-2">
+                    {[
+                      { slug: 'skill-acquisition', label: '🎓 Skill Acquisition' },
+                      { slug: 'youth-empowerment', label: '💼 Youth Empowerment' },
+                      { slug: 'education-scholarships', label: '📚 Education' },
+                      { slug: 'healthcare-welfare', label: '🏥 Healthcare' },
+                      { slug: 'innovation-entrepreneurship', label: '💡 Innovation' },
+                      { slug: 'peacebuilding', label: '🕊️ Peacebuilding' },
+                      { slug: 'humanitarian-support', label: '🤝 Humanitarian' },
+                    ].map((p) => (
+                      <Link key={p.slug} href={`/programmes/${p.slug}`}
+                        className={`block px-3 py-2 rounded-xl text-sm transition-colors ${p.slug === programme.slug ? 'bg-teal-50 text-teal-700 font-semibold' : 'text-navy-600 hover:bg-navy-50'}`}>
+                        {p.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <CTASection />
+      </main>
+      <Footer />
+    </>
+  );
+}

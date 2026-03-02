@@ -1,0 +1,169 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         AdminRole @default(EDITOR)
+  isActive     Boolean   @default(true)
+  lastLogin    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  @@map("admin_users")
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  EDITOR
+  VIEWER
+}
+
+model Application {
+  id            String            @id @default(cuid())
+  refNumber     String            @unique @default(cuid())
+  firstName     String
+  middleName    String?
+  lastName      String
+  dateOfBirth   DateTime
+  gender        String
+  state         String
+  lga           String
+  ward          String
+  address       String
+  phone         String
+  guardianName  String?
+  guardianPhone String?
+  schoolName    String
+  schoolState   String
+  schoolLga     String
+  classLevel    String
+  examTypes     String[]
+  examYear      String
+  prevAttempts  Int               @default(0)
+  statement     String            @db.Text
+  photoUrl      String?
+  photoPublicId String?
+  status        ApplicationStatus @default(PENDING)
+  adminNotes    String?           @db.Text
+  reviewedAt    DateTime?
+  reviewedBy    String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  @@map("applications")
+  @@index([state])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum ApplicationStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  SPONSORED
+}
+
+model News {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  excerpt       String
+  content       String    @db.Text
+  coverImage    String?
+  coverPublicId String?
+  category      String    @default("News")
+  tags          String[]
+  isPublished   Boolean   @default(false)
+  isFeatured    Boolean   @default(false)
+  publishedAt   DateTime?
+  authorName    String    @default("Kowa Namu Ne Foundation")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  @@map("news")
+  @@index([slug])
+  @@index([isPublished])
+}
+
+model FounderProfile {
+  id            String        @id @default(cuid())
+  name          String        @default("Hon. Abdulazeez Kaka")
+  title         String        @default("Founder & Visionary")
+  subtitle      String        @default("Chairman, APC Youth Stakeholders Forum")
+  bio           String        @db.Text
+  vision        String?       @db.Text
+  quote         String?
+  photoUrl      String?
+  photoPublicId String?
+  email         String?
+  twitter       String?
+  linkedin      String?
+  facebook      String?
+  achievements  Achievement[]
+  updatedAt     DateTime      @updatedAt
+  @@map("founder_profile")
+}
+
+model Achievement {
+  id        String         @id @default(cuid())
+  title     String
+  year      String
+  order     Int            @default(0)
+  founderId String
+  founder   FounderProfile @relation(fields: [founderId], references: [id], onDelete: Cascade)
+  @@map("achievements")
+}
+
+model Programme {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  icon        String
+  tagline     String
+  description String   @db.Text
+  impact      String?
+  coverImage  String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  updatedAt   DateTime @updatedAt
+  @@map("programmes")
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  publicId    String
+  category    String   @default("General")
+  isPublished Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  @@map("gallery")
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+  @@map("site_settings")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  @@map("contact_messages")
+}
