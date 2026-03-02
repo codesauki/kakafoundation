@@ -4,6 +4,8 @@ import { authOptions } from '@/lib/auth';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { Buffer } from 'buffer';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

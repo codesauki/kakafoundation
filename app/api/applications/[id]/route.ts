@@ -6,6 +6,8 @@ import { deleteImage } from '@/lib/cloudinary';
 
 interface Ctx { params: { id: string } }
 
+export const dynamic = 'force-dynamic';
+
 // GET single application
 export async function GET(_: NextRequest, { params }: Ctx) {
   const session = await getServerSession(authOptions);

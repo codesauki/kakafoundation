@@ -3,7 +3,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 interface Ctx { params: { slug: string } }
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(_: NextRequest, { params }: Ctx) {
   const article = await prisma.news.findUnique({ where: { slug: params.slug } });

@@ -5,6 +5,8 @@ import { prisma } from '@/lib/db';
 import { uploadImage } from '@/lib/cloudinary';
 import { Buffer } from 'buffer';
 
+export const dynamic = 'force-dynamic';
+
 // POST — public: submit new application
 export async function POST(req: NextRequest) {
   try {

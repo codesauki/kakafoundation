@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const items = await prisma.galleryItem.findMany({ where: { isPublished: true }, orderBy: [{ order: 'asc' }, { createdAt: 'desc' }] });
