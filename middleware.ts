@@ -2,15 +2,11 @@ import { withAuth } from 'next-auth/middleware';
 
 export default withAuth(
   function middleware() {
-    // Middleware just passes through - NextAuth handles auth check
     return undefined;
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
-        // Allow access only if token exists
-        return !!token;
-      },
+      authorized: ({ token }) => !!token,
     },
     pages: {
       signIn: '/login',
@@ -19,7 +15,7 @@ export default withAuth(
   }
 );
 
-// Only protect /admin routes - NOT /login
+// Only protect /admin routes - /login is now outside (admin) group
 export const config = {
   matcher: ['/admin/:path*'],
 };

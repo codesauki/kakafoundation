@@ -47,55 +47,51 @@ export default function AdminLoginPage() {
         </div>
 
         <div className="card p-8 shadow-navy-lg">
-          <h2 className="font-display text-xl text-navy-800 font-semibold mb-6 text-center">
-            Sign In to Admin Panel
-          </h2>
-
-          {error && (
-            <div className="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm mb-5">
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="label">Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-300" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="input pl-10"
-                  placeholder="admin@kowanamunejoundation.org"
-                  required
-                />
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex gap-3">
+                <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 shrink-0" />
+                <p className="text-red-700 text-sm">{error}</p>
               </div>
+            )}
+
+            <div>
+              <label className="block text-sm font-medium text-navy-700 mb-2">
+                <Mail className="w-4 h-4 inline mr-2" />
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@kowanamunejoundation.org"
+                className="w-full px-4 py-2.5 border border-navy-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-navy-800 placeholder-navy-400"
+                disabled={loading}
+                required
+              />
             </div>
 
             <div>
-              <label className="label">Password</label>
+              <label className="block text-sm font-medium text-navy-700 mb-2">
+                <Lock className="w-4 h-4 inline mr-2" />
+                Password
+              </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-300" />
                 <input
                   type={showPw ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input pl-10 pr-10"
-                  placeholder="••••••••••"
+                  placeholder="••••••••"
+                  className="w-full px-4 py-2.5 border border-navy-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-navy-800 placeholder-navy-400"
+                  disabled={loading}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPw(!showPw)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-300 hover:text-navy-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-navy-600"
                 >
-                  {showPw ? (
-                    <EyeOff className="w-4 h-4" />
-                  ) : (
-                    <Eye className="w-4 h-4" />
-                  )}
+                  {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
@@ -103,16 +99,22 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full justify-center py-3 mt-2"
+              className="w-full btn-primary py-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Signing in…' : 'Sign In'}
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
-        </div>
 
-        <p className="text-center text-navy-400 text-xs mt-6">
-          Only authorised Foundation staff may access this panel.
-        </p>
+          <div className="mt-6 pt-6 border-t border-navy-100">
+            <p className="text-center text-navy-500 text-xs">
+              Default credentials for demo:
+              <br />
+              <span className="text-navy-600 font-mono">admin@kowanamunejoundation.org</span>
+              <br />
+              <span className="text-navy-600 font-mono">Admin@KNF2026!</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
