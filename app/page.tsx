@@ -7,6 +7,8 @@ import FounderPreview from '@/components/sections/FounderPreview';
 import NewsSection from '@/components/sections/NewsSection';
 import CTASection from '@/components/sections/CTASection';
 
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   return (
     <>

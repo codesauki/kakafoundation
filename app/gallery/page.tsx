@@ -8,6 +8,7 @@ import { prisma } from '@/lib/db';
 interface GalleryItem { id: string; imageUrl: string; title: string; category: string; }
 
 export const metadata: Metadata = { title: 'Gallery' };
+export const dynamic = 'force-dynamic';
 
 async function getGallery() {
   try {

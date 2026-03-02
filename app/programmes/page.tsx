@@ -10,6 +10,7 @@ import { prisma } from '@/lib/db';
 interface Programme { id: string; slug: string; icon: string; title: string; tagline: string; impact?: string | null; }
 
 export const metadata: Metadata = { title: 'Our Programmes' };
+export const dynamic = 'force-dynamic';
 
 async function getProgrammes() {
   try {

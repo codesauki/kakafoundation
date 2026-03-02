@@ -9,6 +9,7 @@ import { prisma } from '@/lib/db';
 interface Achievement { id: string; year: string; title: string; order: number; }
 
 export const metadata: Metadata = { title: 'About the Founder — Hon. Abdulazeez Kaka' };
+export const dynamic = 'force-dynamic';
 
 async function getFounder() {
   try {

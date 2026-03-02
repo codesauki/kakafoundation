@@ -10,6 +10,7 @@ import { formatDateShort } from '@/lib/utils';
 interface NewsArticle { id: string; slug: string; isFeatured: boolean; coverImage?: string | null; title: string; excerpt: string; publishedAt?: Date | null; category?: string; }
 
 export const metadata: Metadata = { title: 'News & Updates' };
+export const dynamic = 'force-dynamic';
 
 async function getNews() {
   try {
