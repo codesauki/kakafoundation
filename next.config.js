@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Build cache invalidation - force Vercel rebuild
 const nextConfig = {
   images: {
     remotePatterns: [
