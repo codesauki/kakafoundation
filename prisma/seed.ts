@@ -23,6 +23,7 @@ async function main() {
       name: 'Hon. Abdulazeez Kaka',
       title: 'Founder & Visionary',
       subtitle: 'Chairman, APC Youth Stakeholders Forum',
+      photoUrl: '/images/founder-portrait.png',
       bio: `Hon. Abdulazeez Kaka is a passionate advocate for youth empowerment, community development, and humanitarian service across Nigeria. Born with an unwavering commitment to the upliftment of the underserved, he has dedicated his public life to creating systems that give every Nigerian young person a fair chance at education, economic participation, and dignified living.\n\nAs Chairman of the APC Youth Stakeholders Forum, Hon. Kaka has leveraged his political standing not for personal advancement, but as a platform to channel resources, attention, and policy advocacy toward the communities that need it most.\n\nThe Kowa Namu Ne Foundation — whose name translates as "Come With Us" — is the institutional embodiment of his life's mission: to build bridges between Nigeria's promise and its people.`,
       vision: 'A Nigeria where every young person, regardless of geography or circumstance, has access to the education, skills, and opportunities they need to build a dignified and prosperous life.',
       quote: 'When we lift one, we lift all. Come with us — there is room for everyone.',

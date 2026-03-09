@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Quote, ArrowRight } from 'lucide-react';
 
 export default function FounderPreview() {
@@ -24,15 +25,16 @@ export default function FounderPreview() {
               <div className="absolute -bottom-3 -right-3 w-12 h-12 border-b-2 border-r-2 border-teal-400 rounded-br-2xl" />
 
               {/* Photo placeholder */}
-              <div className="w-full h-full rounded-2xl bg-navy-700 overflow-hidden flex items-end">
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-24 h-24 rounded-full bg-navy-600 mx-auto mb-4 flex items-center justify-center">
-                      <span className="font-display text-4xl font-bold text-gold-400">AK</span>
-                    </div>
-                    <div className="text-white/60 text-xs">Portrait uploaded via Admin</div>
-                  </div>
-                </div>
+              <div className="w-full h-full rounded-2xl bg-navy-700 overflow-hidden">
+                <Image
+                  src="/images/founder-portrait.png"
+                  alt="Hon. Abdulazeez Kaka - Founder & Chairman"
+                  width={400}
+                  height={500}
+                  priority
+                  quality={85}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               {/* Title badge */}

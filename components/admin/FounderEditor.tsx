@@ -15,7 +15,7 @@ interface FounderData {
 const DEFAULT: FounderData = {
   name: 'Hon. Abdulazeez Kaka', title: 'Founder & Chairman', subtitle: 'Chairman, APC Youth Stakeholders Forum',
   bio: '', vision: '', quote: 'When we lift one, we lift all. Come with us — there is room for everyone.',
-  photoUrl: '', email: '', phone: '', twitterUrl: '', facebookUrl: '', instagramUrl: '', achievements: [],
+  photoUrl: '/images/founder-portrait.png', email: '', phone: '', twitterUrl: '', facebookUrl: '', instagramUrl: '', achievements: [],
 };
 
 export default function FounderEditor() {

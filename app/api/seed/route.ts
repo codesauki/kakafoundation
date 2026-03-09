@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
         name: 'Hon. Abdulazeez Kaka',
         title: 'Founder & Visionary',
         subtitle: 'Chairman, APC Youth Stakeholders Forum',
+        photoUrl: '/images/founder-portrait.png',
         bio: 'Biography loaded from database',
         vision: 'A Nigeria where every young person has access to opportunities.',
         quote: 'When we lift one, we lift all. Come with us — there is room for everyone.',

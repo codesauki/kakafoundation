@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Quote } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -55,18 +56,15 @@ export default async function FounderPage() {
 
                   {/* Photo */}
                   <div className="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden shadow-navy-lg ring-1 ring-white/10">
-                    {photoUrl ? (
-                      <img src={photoUrl} alt={name} className="w-full h-full object-cover object-top" />
-                    ) : (
-                      <div className="w-full h-full bg-navy-700 flex flex-col items-center justify-center gap-3">
-                        <div className="w-24 h-24 rounded-full bg-navy-600 flex items-center justify-center">
-                          <span className="font-display text-4xl font-bold text-gold-400">
-                            {name.split(' ').slice(0, 2).map((n: string) => n[0]).join('')}
-                          </span>
-                        </div>
-                        <p className="text-navy-400 text-xs px-6 text-center">Portrait managed via Admin Dashboard</p>
-                      </div>
-                    )}
+                    <Image
+                      src={photoUrl || '/images/founder-portrait.png'}
+                      alt={name}
+                      width={400}
+                      height={500}
+                      priority
+                      quality={85}
+                      className="w-full h-full object-cover object-top"
+                    />
                   </div>
 
                   {/* Name badge */}
