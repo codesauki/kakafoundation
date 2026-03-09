@@ -1,8 +1,7 @@
+'use client';
+
 import Link from 'next/link';
 import { CheckCircle, Copy, Phone, Mail, Home } from 'lucide-react';
-
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 export default function SuccessPage({ searchParams }: { searchParams: { ref?: string } }) {
   const ref = searchParams?.ref ?? 'APPLICATION-SUBMITTED';
