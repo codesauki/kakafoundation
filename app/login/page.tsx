@@ -1,31 +1,63 @@
 'use client';
 
-import { useState } from 'react';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Eye, EyeOff, Lock, AlertCircle } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { data: session, status } = useSession();
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Handle redirect after login
+  useEffect(() => {
+    setIsMounted(true);
+    
+    if (status === 'authenticated' && session) {
+      const callbackUrl = searchParams.get('callbackUrl') || '/admin';
+      router.push(callbackUrl);
+    }
+  }, [status, session, router, searchParams]);
+
+  if (!isMounted || status === 'loading') {
+    return (
+      <div className="min-h-screen bg-navy-gradient flex items-center justify-center p-4">
+        <div className="text-white text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-400 mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    const result = await signIn('credentials', {
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn('credentials', {
+        password,
+        redirect: false,
+        callbackUrl: '/admin',
+      });
 
-    if (result?.ok) {
-      router.push('/admin');
-    } else {
-      setError('Invalid password. Too many attempts will temporarily block access.');
+      if (result?.error) {
+        setError('Invalid password. Too many attempts will temporarily block access.');
+      } else if (result?.ok) {
+        // Session update is handled by useSession hook
+        router.push('/admin');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+      console.error('Sign in error:', err);
+    } finally {
       setLoading(false);
     }
   };
