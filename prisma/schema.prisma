@@ -152,19 +152,11 @@ model GalleryItem {
 model SiteSetting {
   id                    String @id @default(cuid())
   key                   String @unique
-  value                 String
+  value                 String @db.Text
   description           String?
   isPublic              Boolean @default(false)
   updatedBy             String?
   updatedAt             DateTime @updatedAt
-  @@map("site_settings")
-}
-
-model SiteSetting {
-  id        String   @id @default(cuid())
-  key       String   @unique
-  value     String   @db.Text
-  updatedAt DateTime @updatedAt
   @@map("site_settings")
 }
 
