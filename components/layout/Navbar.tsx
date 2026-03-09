@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -60,8 +61,14 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10">
               <div className="absolute inset-0 bg-teal-gradient rounded-xl rotate-3 group-hover:rotate-6 transition-transform duration-300" />
-              <div className="relative w-10 h-10 bg-navy-gradient rounded-xl flex items-center justify-center">
-                <span className="text-white font-display font-bold text-lg leading-none">K</span>
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden">
+                {/* logo image needs to be pre-generated as /images/logo-sm.png */}
+                <Image
+                  src="/images/logo-sm.png"
+                  alt="Kowa Namu Ne Foundation logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
             <div className="hidden sm:block">
