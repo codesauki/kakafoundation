@@ -6,6 +6,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CTASection from '@/components/sections/CTASection';
 import { galleryImages } from '@/data/gallery';
+import { SettingsProvider } from '@/components/providers/SettingsProvider';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
@@ -14,6 +15,14 @@ export const metadata: Metadata = {
 };
 
 export default function GalleryPage() {
+  return (
+    <SettingsProvider>
+      <GalleryPageContent />
+    </SettingsProvider>
+  );
+}
+
+function GalleryPageContent() {
   return (
     <>
       <Navbar />

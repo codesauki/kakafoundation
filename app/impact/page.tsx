@@ -3,6 +3,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
 import { impactStories } from '@/data/impactStories';
+import CTASection from '@/components/sections/CTASection';
+import { SettingsProvider } from '@/components/providers/SettingsProvider';
 
 export const dynamic = 'force-dynamic';
 export const metadata = {
@@ -12,6 +14,14 @@ export const metadata = {
 };
 
 export default function ImpactPage() {
+  return (
+    <SettingsProvider>
+      <ImpactPageContent />
+    </SettingsProvider>
+  );
+}
+
+function ImpactPageContent() {
   const economicImpact = impactStories[0];
   const healthImpact = impactStories[1];
   const educationImpact = impactStories[2];
