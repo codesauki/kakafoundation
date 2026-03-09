@@ -6,6 +6,8 @@ import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
 import { SettingsProvider, useSiteSettings } from '@/components/providers/SettingsProvider';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = { title: 'Education Portal', description: 'Apply for JAMB, WAEC, and NECO scholarship support from Kowa Namu Ne Foundation.' };
 
 const STEPS = [

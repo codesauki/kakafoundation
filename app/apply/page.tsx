@@ -5,6 +5,8 @@ import Footer from '@/components/layout/Footer';
 import ApplicationForm from '@/components/application/ApplicationForm';
 import { SettingsProvider, useSiteSettings } from '@/components/providers/SettingsProvider';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Apply for Scholarship',
   description: 'Apply for JAMB, WAEC, or NECO examination sponsorship from the Kowa Namu Ne Foundation.',
