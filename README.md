@@ -45,7 +45,7 @@ npx prisma db seed
 ```
 
 The seed creates:
-- Super admin user: `admin@kowanamunejoundation.org` / `Admin@KNF2026!`
+- Super admin user: `admin@kowanamunejoundation.org` (password via `ADMIN_PASSWORD` env var)
 - Founder profile for Hon. Abdulazeez Kaka
 - All 7 programme entries
 - Sample news articles
@@ -196,11 +196,12 @@ npx prisma db seed
 ## 🔑 Default Admin Credentials
 
 ```
-Email:    admin@kowanamunejoundation.org
-Password: Admin@KNF2026!
+Email: admin@kowanamunejoundation.org
 ```
 
-**⚠️ Change this password immediately after first login via Admin → Settings.**
+The password is configured via the `ADMIN_PASSWORD` environment variable.
+
+**⚠️ Set a strong password in your `.env` or hosting platform environment variables before deploying to production.**
 
 ---
 

@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
     console.log('🌱 Starting database seed...');
 
     // Create admin user
-    const hash = await bcrypt.hash('Admin@KNF2026!', 12);
+    const adminPassword = process.env.ADMIN_PASSWORD || 'change-me';
+    const hash = await bcrypt.hash(adminPassword, 12);
     await prisma.adminUser.upsert({
       where: { email: 'admin@kowanamunejoundation.org' },
       update: {},
@@ -28,7 +29,7 @@ export async function POST(req: NextRequest) {
         role: 'SUPER_ADMIN' 
       },
     });
-    console.log('✅ Admin user created');
+    console.log('✅ Admin user created (password via ADMIN_PASSWORD env var)');
 
     // Create founder profile
     await prisma.founderProfile.upsert({
@@ -99,7 +100,7 @@ export async function POST(req: NextRequest) {
       success: true,
       message: '🌱 Database seeded successfully!',
       data: {
-        admin: 'admin@kowanamunejoundation.org / Admin@KNF2026!',
+        admin: 'admin@kowanamunejoundation.org (password via ADMIN_PASSWORD env var)',
         founder: 'Hon. Abdulazeez Kaka',
         programmes: programmes.length,
         settings: settings.length,

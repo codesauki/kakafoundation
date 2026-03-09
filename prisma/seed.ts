@@ -6,13 +6,14 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database...');
 
-  const hash = await bcrypt.hash('Admin@KNF2026!', 12);
+  const adminPassword = process.env.ADMIN_PASSWORD || 'change-me';
+  const hash = await bcrypt.hash(adminPassword, 12);
   await prisma.adminUser.upsert({
     where: { email: 'admin@kowanamunejoundation.org' },
     update: {},
     create: { name: 'Super Admin', email: 'admin@kowanamunejoundation.org', passwordHash: hash, role: 'SUPER_ADMIN' },
   });
-  console.log('✅ Admin: admin@kowanamunejoundation.org / Admin@KNF2026!');
+  console.log('✅ Admin: admin@kowanamunejoundation.org (password via ADMIN_PASSWORD env var)');
 
   await prisma.founderProfile.upsert({
     where: { id: 'founder-main' },
