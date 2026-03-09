@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
@@ -15,12 +17,29 @@ export default function ContactPage() {
     e.preventDefault();
     setSending(true); setError('');
     try {
-      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-      if (!res.ok) throw new Error('Failed to send message');
-      setSent(true);
-    } catch {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+
+      const templateParams = {
+        from_name: form.name,
+        from_email: form.email,
+        subject: form.subject,
+        message: form.message,
+      };
+
+      const result = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      if (result.status === 200) {
+        setSent(true);
+      } else {
+        throw new Error('EmailJS error');
+      }
+    } catch (err) {
+      console.error('EmailJS send error', err);
       setError('Failed to send your message. Please try again or email us directly.');
-    } finally { setSending(false); }
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
