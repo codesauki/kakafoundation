@@ -4,6 +4,7 @@ import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
 import { impactStories } from '@/data/impactStories';
 
+export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Impact Stories | Kowa Namu Ne Foundation',
   description:

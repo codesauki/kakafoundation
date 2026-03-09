@@ -4,6 +4,7 @@ import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
 import { report2025 } from '@/data/reports';
 
+export const dynamic = 'force-dynamic';
 export const metadata = {
   title: '2025 Annual Report | Kowa Namu Ne Foundation',
   description:

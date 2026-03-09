@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import CTASection from '@/components/sections/CTASection';
 import { galleryImages } from '@/data/gallery';
 
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Photo Gallery — Kowa Namu Ne Foundation',
   description: 'Explore our collection of 199 photos showcasing youth empowerment, community impact, and transformation across Nigeria.',
