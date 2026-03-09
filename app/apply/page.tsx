@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ApplicationForm from '@/components/application/ApplicationForm';
-import { SettingsProvider, useSettings } from '@/components/providers/SettingsProvider';
+import { SettingsProvider, useSiteSettings } from '@/components/providers/SettingsProvider';
 
 export const metadata: Metadata = {
   title: 'Apply for Scholarship',
@@ -19,7 +19,7 @@ export default function ApplyPage() {
 }
 
 function ApplyPageContent() {
-  const { scholarshipsEnabled, loading } = useSettings();
+  const { scholarshipsEnabled, loading } = useSiteSettings();
 
   if (loading) {
     return (

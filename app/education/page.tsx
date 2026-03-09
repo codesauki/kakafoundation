@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle, BookOpen, GraduationCap, FileText } from 'luci
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
-import { SettingsProvider, useSettings } from '@/components/providers/SettingsProvider';
+import { SettingsProvider, useSiteSettings } from '@/components/providers/SettingsProvider';
 
 export const metadata: Metadata = { title: 'Education Portal', description: 'Apply for JAMB, WAEC, and NECO scholarship support from Kowa Namu Ne Foundation.' };
 
@@ -24,7 +24,7 @@ export default function EducationPage() {
 }
 
 function EducationPageContent() {
-  const { scholarshipsEnabled } = useSettings();
+  const { scholarshipsEnabled } = useSiteSettings();
 
   return (
     <>

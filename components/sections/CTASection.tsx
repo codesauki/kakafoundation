@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { ArrowRight, BookOpen, GraduationCap } from 'lucide-react';
-import { useSettings } from '@/components/providers/SettingsProvider';
+import { useSiteSettings } from '@/components/providers/SettingsProvider';
 
 export default function CTASection() {
-  const { scholarshipsEnabled } = useSettings();
+  const { scholarshipsEnabled } = useSiteSettings();
 
   if (!scholarshipsEnabled) {
     return null;

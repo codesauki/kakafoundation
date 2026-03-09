@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Twitter, Facebook, Instagram } from 'lucide-react';
-import { useSettings } from '@/components/providers/SettingsProvider';
+import { useSiteSettings } from '@/components/providers/SettingsProvider';
 
 const PROGRAMMES = [
   { href: '/programmes/skill-acquisition', label: 'Skill Acquisition' },
@@ -26,7 +26,7 @@ const SCHOLARSHIP_LINKS = [
 ];
 
 export default function Footer() {
-  const { scholarshipsEnabled } = useSettings();
+  const { scholarshipsEnabled } = useSiteSettings();
   return (
     <footer className="bg-navy-900 text-white">
       {/* Main Footer */}

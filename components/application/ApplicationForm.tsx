@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -225,7 +226,7 @@ export default function ApplicationForm() {
               <label className="label">Passport Photograph <span className="text-navy-300 font-normal">(optional)</span></label>
               {photoPreview ? (
                 <div className="flex items-center gap-4">
-                  <img src={photoPreview} alt="Preview" className="w-20 h-20 rounded-xl object-cover border-2 border-teal-200" />
+                  <Image src={photoPreview} alt="Preview" width={80} height={80} className="rounded-xl object-cover border-2 border-teal-200" />
                   <button type="button" onClick={() => { setPhotoPreview(null); setPhotoFile(null); }}
                     className="flex items-center gap-1.5 text-sm text-red-500 hover:text-red-700">
                     <X className="w-4 h-4" /> Remove

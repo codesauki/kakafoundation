@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { useSettings } from '@/components/providers/SettingsProvider';
+import { useSiteSettings } from '@/components/providers/SettingsProvider';
 
 export default function HeroSection() {
-  const { scholarshipsEnabled } = useSettings();
+  const { scholarshipsEnabled } = useSiteSettings();
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
