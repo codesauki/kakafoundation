@@ -21,7 +21,7 @@ export default function ImpactPage() {
       <main>
         <PageHeader
           title="2025 Impact Stories"
-          description="Documenting a year of action, inclusion, and purposeful leadership across Kaduna North"
+          subtitle="Documenting a year of action, inclusion, and purposeful leadership across Kaduna North"
         />
 
         {/* Economic Empowerment Story */}

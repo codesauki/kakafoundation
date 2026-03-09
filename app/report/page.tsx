@@ -17,7 +17,7 @@ export default function AnnualReportPage() {
       <main>
         <PageHeader
           title={report2025.title}
-          description={report2025.tagline}
+          subtitle={report2025.tagline}
         />
 
         {/* Report Overview */}
