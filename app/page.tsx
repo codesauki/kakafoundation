@@ -4,6 +4,7 @@ import HeroSection from '@/components/sections/HeroSection';
 import ImpactSection from '@/components/sections/ImpactSection';
 import ProgrammesSection from '@/components/sections/ProgrammesSection';
 import FounderPreview from '@/components/sections/FounderPreview';
+import GallerySection from '@/components/sections/GallerySection';
 import NewsSection from '@/components/sections/NewsSection';
 import CTASection from '@/components/sections/CTASection';
 
@@ -18,6 +19,7 @@ export default function HomePage() {
         <ImpactSection />
         <ProgrammesSection />
         <FounderPreview />
+        <GallerySection />
         <NewsSection />
         <CTASection />
       </main>

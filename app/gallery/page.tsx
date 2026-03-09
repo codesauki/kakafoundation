@@ -1,95 +1,72 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowLeft, Download } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import PageHeader from '@/components/ui/PageHeader';
 import CTASection from '@/components/sections/CTASection';
-import { prisma } from '@/lib/db';
+import { galleryImages } from '@/data/gallery';
 
-interface GalleryItem { id: string; imageUrl: string; title: string; category: string; }
+export const metadata: Metadata = {
+  title: 'Photo Gallery — Kowa Namu Ne Foundation',
+  description: 'Explore our collection of 199 photos showcasing youth empowerment, community impact, and transformation across Nigeria.',
+};
 
-export const metadata: Metadata = { title: 'Gallery' };
-export const dynamic = 'force-dynamic';
-
-async function getGallery() {
-  try {
-    return await prisma.galleryItem.findMany({
-      where: { isPublished: true },
-      orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
-    });
-  } catch { return []; }
-}
-
-const PLACEHOLDERS = [
-  { title: 'Scholarship Award Ceremony 2024', category: 'Education' },
-  { title: 'Youth Skills Training - Damaturu', category: 'Skills' },
-  { title: 'Free Medical Outreach - Yobe State', category: 'Healthcare' },
-  { title: 'Innovation Hub Graduation Day', category: 'Innovation' },
-  { title: 'Community Dialogue Forum', category: 'Peacebuilding' },
-  { title: 'Clean Water Project Inauguration', category: 'Humanitarian' },
-  { title: 'Founder Visit to Beneficiaries', category: 'Foundation' },
-  { title: 'Student Support Distribution', category: 'Education' },
-  { title: 'SME Empowerment Workshop', category: 'Youth' },
-];
-
-export default async function GalleryPage() {
-  const items = await getGallery();
-  const displayItems = items.length > 0 ? items : [];
-
+export default function GalleryPage() {
   return (
     <>
       <Navbar />
       <main>
+        {/* Header */}
         <section className="relative pt-32 pb-20 bg-navy-gradient overflow-hidden">
           <div className="absolute inset-0 bg-noise opacity-30" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl" />
+
           <div className="container-xl relative z-10">
-            <PageHeader tag="Gallery" title="Our Work in" titleHighlight="Pictures" subtitle="A visual journey through the Foundation's programmes, events, and the communities we serve across Nigeria." dark />
+            <Link href="/" className="inline-flex items-center gap-2 text-gold-300 hover:text-gold-200 mb-8 font-medium">
+              <ArrowLeft className="w-4 h-4" />
+              Back Home
+            </Link>
+
+            <h1 className="font-display text-5xl sm:text-6xl text-white mb-4">Photo Gallery</h1>
+            <p className="text-white/75 max-w-2xl text-lg">
+              {galleryImages.length} captured moments of impact, transformation, and community building across Nigeria
+            </p>
           </div>
+
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
         </section>
 
+        {/* Gallery Grid */}
         <section className="section-pad bg-white">
           <div className="container-xl">
-            {displayItems.length > 0 ? (
-              <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-                {displayItems.map((item: GalleryItem) => (
-                  <div key={item.id} className="break-inside-avoid group card overflow-hidden block">
-                    <div className="overflow-hidden">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
-                        className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-3">
-                      <div className="text-xs font-semibold text-teal-600 mb-1">{item.category}</div>
-                      <div className="text-sm font-medium text-navy-700">{item.title}</div>
-                    </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {galleryImages.map((img) => (
+                <div key={img.id} className="group relative aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all bg-navy-100">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    quality={75}
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <button 
+                      className="p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors backdrop-blur-sm"
+                      aria-label="Download image"
+                    >
+                      <Download className="w-5 h-5" />
+                    </button>
                   </div>
-                ))}
-              </div>
-            ) : (
-              /* Placeholder grid while no images uploaded */
-              <div>
-                <div className="text-center mb-10 p-5 bg-amber-50 border border-amber-200 rounded-2xl">
-                  <p className="text-amber-700 text-sm font-medium">Gallery images will appear here once uploaded via the Admin Dashboard → Media Library.</p>
+                  {/* Image number label */}
+                  <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
+                    <p className="text-white text-xs font-medium">#{img.id}</p>
+                  </div>
                 </div>
-                <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-                  {PLACEHOLDERS.map((p, i) => (
-                    <div key={i} className="break-inside-avoid card overflow-hidden">
-                      <div
-                        className={`flex items-center justify-center ${i % 3 === 0 ? 'h-48 bg-navy-gradient' : i % 3 === 1 ? 'h-60 bg-teal-gradient' : 'h-52'} ${i % 3 === 2 ? 'bg-gradient-to-br from-gold-200 to-gold-400' : ''}`}
-                      >
-                        <span className="text-white/30 font-display text-5xl">📸</span>
-                      </div>
-                      <div className="p-3">
-                        <div className="text-xs font-semibold text-teal-600 mb-1">{p.category}</div>
-                        <div className="text-sm font-medium text-navy-700">{p.title}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </section>
 
