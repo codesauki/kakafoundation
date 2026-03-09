@@ -64,9 +64,15 @@ async function main() {
     ['social_twitter', 'https://twitter.com/KowaNamuNe'],
     ['social_facebook', 'https://facebook.com/KowaNamuNeFoundation'],
     ['social_instagram', 'https://instagram.com/KowaNamuNe'],
+    ['scholarships_enabled', 'true'],
   ];
   for (const [key, value] of settings) {
-    await prisma.siteSetting.upsert({ where: { key }, update: { value }, create: { key, value, id: `setting-${key}`, updatedAt: new Date() } });
+    const isPublic = ['scholarships_enabled', 'applications_open', 'contact_phone', 'contact_email', 'contact_address'].includes(key);
+    await prisma.siteSetting.upsert({
+      where: { key },
+      update: { value, isPublic },
+      create: { key, value, isPublic, id: `setting-${key}`, updatedAt: new Date() }
+    });
   }
 
   const newsItems = [

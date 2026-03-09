@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Providers } from './providers';
+import { SettingsProvider } from '@/components/providers/SettingsProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -138,9 +139,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="min-h-screen bg-white font-body">
-        <Providers>
-          {children}
-        </Providers>
+        <SettingsProvider>
+          <Providers>
+            {children}
+          </Providers>
+        </SettingsProvider>
       </body>
     </html>
   );

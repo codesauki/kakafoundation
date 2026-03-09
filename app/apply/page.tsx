@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ApplicationForm from '@/components/application/ApplicationForm';
+import { SettingsProvider, useSettings } from '@/components/providers/SettingsProvider';
 
 export const metadata: Metadata = {
   title: 'Apply for Scholarship',
@@ -9,6 +11,54 @@ export const metadata: Metadata = {
 };
 
 export default function ApplyPage() {
+  return (
+    <SettingsProvider>
+      <ApplyPageContent />
+    </SettingsProvider>
+  );
+}
+
+function ApplyPageContent() {
+  const { scholarshipsEnabled, loading } = useSettings();
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-cream-100 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-navy-600">Loading...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!scholarshipsEnabled) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-cream-100 flex items-center justify-center">
+          <div className="text-center max-w-md mx-auto px-4">
+            <div className="w-16 h-16 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-2xl">📅</span>
+            </div>
+            <h1 className="font-display text-2xl text-navy-800 mb-4">Applications Currently Closed</h1>
+            <p className="text-navy-600 mb-6">
+              Scholarship applications are currently not accepting new submissions. Please check back later for updates on future application cycles.
+            </p>
+            <Link href="/" className="btn-navy">
+              Return to Homepage
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />

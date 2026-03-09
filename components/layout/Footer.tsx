@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Twitter, Facebook, Instagram } from 'lucide-react';
+import { useSettings } from '@/components/providers/SettingsProvider';
 
 const PROGRAMMES = [
   { href: '/programmes/skill-acquisition', label: 'Skill Acquisition' },
@@ -17,11 +18,15 @@ const QUICK_LINKS = [
   { href: '/news', label: 'News & Updates' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact Us' },
+];
+
+const SCHOLARSHIP_LINKS = [
   { href: '/apply', label: 'Apply for Scholarship' },
   { href: '/education', label: 'Education Portal' },
 ];
 
 export default function Footer() {
+  const { scholarshipsEnabled } = useSettings();
   return (
     <footer className="bg-navy-900 text-white">
       {/* Main Footer */}
@@ -98,6 +103,16 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              {scholarshipsEnabled && SCHOLARSHIP_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-navy-300 text-sm hover:text-white transition-colors duration-200 hover:translate-x-0.5 inline-block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -125,14 +140,16 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="mt-6 p-4 bg-navy-800 rounded-2xl border border-teal-900">
-              <div className="text-xs font-semibold text-teal-400 uppercase tracking-widest mb-1">Applications Open</div>
-              <div className="text-sm text-white font-medium">2026 Scholarship Cycle</div>
-              <div className="text-xs text-navy-400 mt-1">Deadline: June 30, 2026</div>
-              <Link href="/apply" className="mt-3 btn-gold text-xs px-4 py-2 w-full justify-center">
-                Apply Now
-              </Link>
-            </div>
+            {scholarshipsEnabled && (
+              <div className="mt-6 p-4 bg-navy-800 rounded-2xl border border-teal-900">
+                <div className="text-xs font-semibold text-teal-400 uppercase tracking-widest mb-1">Applications Open</div>
+                <div className="text-sm text-white font-medium">2026 Scholarship Cycle</div>
+                <div className="text-xs text-navy-400 mt-1">Deadline: June 30, 2026</div>
+                <Link href="/apply" className="mt-3 btn-gold text-xs px-4 py-2 w-full justify-center">
+                  Apply Now
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

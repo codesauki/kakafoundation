@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useSiteSettings } from '@/components/providers/SettingsProvider';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -34,6 +35,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const { scholarshipsEnabled } = useSiteSettings();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -135,9 +137,11 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/apply" className="btn-gold text-sm px-5 py-2.5">
-              Apply for Scholarship
-            </Link>
+            {scholarshipsEnabled && (
+              <Link href="/apply" className="btn-gold text-sm px-5 py-2.5">
+                Apply for Scholarship
+              </Link>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -190,9 +194,11 @@ export default function Navbar() {
               )
             )}
             <div className="pt-3 pb-1">
-              <Link href="/apply" className="btn-gold w-full justify-center">
-                Apply for Scholarship
-              </Link>
+              {scholarshipsEnabled && (
+                <Link href="/apply" className="btn-gold w-full justify-center">
+                  Apply for Scholarship
+                </Link>
+              )}
             </div>
           </div>
         </div>

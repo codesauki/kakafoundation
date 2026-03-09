@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import { ArrowRight, BookOpen, GraduationCap } from 'lucide-react';
+import { useSettings } from '@/components/providers/SettingsProvider';
 
 export default function CTASection() {
+  const { scholarshipsEnabled } = useSettings();
+
+  if (!scholarshipsEnabled) {
+    return null;
+  }
+
   return (
     <section className="section-pad-sm bg-teal-gradient relative overflow-hidden">
       <div className="absolute inset-0 bg-noise opacity-20" />

@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle, BookOpen, GraduationCap, FileText } from 'luci
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/ui/PageHeader';
+import { SettingsProvider, useSettings } from '@/components/providers/SettingsProvider';
 
 export const metadata: Metadata = { title: 'Education Portal', description: 'Apply for JAMB, WAEC, and NECO scholarship support from Kowa Namu Ne Foundation.' };
 
@@ -15,6 +16,16 @@ const STEPS = [
 ];
 
 export default function EducationPage() {
+  return (
+    <SettingsProvider>
+      <EducationPageContent />
+    </SettingsProvider>
+  );
+}
+
+function EducationPageContent() {
+  const { scholarshipsEnabled } = useSettings();
+
   return (
     <>
       <Navbar />
@@ -31,11 +42,13 @@ export default function EducationPage() {
               subtitle="The Kowa Namu Ne Foundation is sponsoring 10,000 Nigerian students in the 2026 examination cycle. JAMB, WAEC, and NECO — we've got you covered."
               dark
             />
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <Link href="/apply" className="btn-gold text-base px-8 py-4">
-                Apply Now — It's Free <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
+            {scholarshipsEnabled && (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+                <Link href="/apply" className="btn-gold text-base px-8 py-4">
+                  Apply Now — It's Free <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            )}
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
         </section>
@@ -116,9 +129,11 @@ export default function EducationPage() {
               })}
             </div>
             <div className="text-center mt-12">
-              <Link href="/apply" className="btn-primary text-base px-8 py-4">
-                Start Your Application <ArrowRight className="w-5 h-5" />
-              </Link>
+              {scholarshipsEnabled && (
+                <Link href="/apply" className="btn-primary text-base px-8 py-4">
+                  Start Your Application <ArrowRight className="w-5 h-5" />
+                </Link>
+              )}
             </div>
           </div>
         </section>

@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import { useSettings } from '@/components/providers/SettingsProvider';
 
 export default function HeroSection() {
+  const { scholarshipsEnabled } = useSettings();
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Main hero background image */}
@@ -61,10 +64,12 @@ export default function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/apply" className="btn-gold text-base px-8 py-4 shadow-lg hover:shadow-gold-lg transition-all">
-              Apply for Scholarship
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            {scholarshipsEnabled && (
+              <Link href="/apply" className="btn-gold text-base px-8 py-4 shadow-lg hover:shadow-gold-lg transition-all">
+                Apply for Scholarship
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            )}
             <Link href="/contact" className="btn-outline-white text-base px-8 py-4">
               Get Involved
             </Link>
