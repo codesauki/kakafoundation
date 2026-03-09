@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 
     if (key) {
       // Get specific setting
-      const setting = await prisma.siteSettings.findUnique({
+      const setting = await prisma.siteSetting.findUnique({
         where: { key },
       });
 
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
       });
     } else {
       // Get all settings (admin only)
-      const settings = await prisma.siteSettings.findMany({
+      const settings = await prisma.siteSetting.findMany({
         orderBy: { updatedAt: 'desc' },
       });
 
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Key and value are required' }, { status: 400 });
     }
 
-    const setting = await prisma.siteSettings.upsert({
+    const setting = await prisma.siteSetting.upsert({
       where: { key },
       update: {
         value,

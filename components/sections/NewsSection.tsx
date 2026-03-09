@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { prisma } from '@/lib/db';
 import { formatDateShort } from '@/lib/utils';
@@ -40,7 +41,7 @@ export default async function NewsSection() {
               <Link key={article.id} href={`/news/${article.slug}`} className="group card-hover overflow-hidden block">
                 <div className={`h-48 ${i === 0 ? 'bg-navy-gradient' : 'bg-teal-gradient'} flex items-center justify-center overflow-hidden`}>
                   {article.coverImage ? (
-                    <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={article.coverImage} alt={article.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   ) : (
                     <div className="text-white/20 font-display text-6xl">📰</div>
                   )}
