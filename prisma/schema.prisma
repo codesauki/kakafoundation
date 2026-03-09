@@ -153,10 +153,10 @@ model SiteSetting {
   id                    String @id @default(cuid())
   key                   String @unique
   value                 String @db.Text
-  description           String?
-  isPublic              Boolean @default(false)
-  updatedBy             String?
-  updatedAt             DateTime @updatedAt
+  description           String? @map("description")
+  isPublic              Boolean @default(false) @map("is_public")
+  updatedBy             String? @map("updated_by")
+  updatedAt             DateTime @updatedAt @map("updated_at")
   @@map("site_settings")
 }
 
