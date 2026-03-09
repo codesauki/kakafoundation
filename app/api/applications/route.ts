@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
-import { uploadImage } from '@/lib/cloudinary';
+import { put, del } from '@vercel/blob';
 import { Buffer } from 'buffer';
 
 export const dynamic = 'force-dynamic';
@@ -24,21 +24,23 @@ export async function POST(req: NextRequest) {
     if (examTypes.length === 0) return NextResponse.json({ error: 'Select at least one examination type' }, { status: 400 });
 
     // Check applications open
-    const setting = await prisma.siteSetting.findUnique({ where: { key: 'applications_open' } });
+    const setting = await prisma.siteSetting.findUnique({ where: { key: 'scholarships_enabled' } });
     if (setting?.value === 'false') {
       return NextResponse.json({ error: 'Applications are currently closed. Please check back later.' }, { status: 403 });
     }
 
-    // Handle photo upload
+    // Handle photo upload to Vercel Blob
     let photoUrl: string | undefined;
     let photoPublicId: string | undefined;
     const photo = formData.get('photo') as File | null;
     if (photo && photo.size > 0) {
       try {
         const buffer = Buffer.from(await photo.arrayBuffer());
-        const result = await uploadImage(buffer, 'applications');
-        photoUrl = result.url;
-        photoPublicId = result.publicId;
+        const timestamp = Date.now();
+        const filename = `applications/${timestamp}-${photo.name}`;
+        const blob = await put(filename, buffer, { access: 'public' });
+        photoUrl = blob.url;
+        photoPublicId = blob.pathname; // Store pathname instead of public ID
       } catch (err) {
         console.error('Photo upload failed:', err);
         // Don't fail the whole submission for photo
