@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -7,11 +9,8 @@ import CTASection from '@/components/sections/CTASection';
 import { SettingsProvider } from '@/components/providers/SettingsProvider';
 
 export const dynamic = 'force-dynamic';
-export const metadata = {
-  title: '2025 Annual Report | Kowa Namu Ne Foundation',
-  description:
-    'The Kowa Namu Ne Foundation 2025 Annual Report - A comprehensive overview of leadership, service, empowerment, and community impact across Kaduna North.',
-};
+
+// Note: metadata will be declared in the parent layout if needed
 
 export default function AnnualReportPage() {
   return (

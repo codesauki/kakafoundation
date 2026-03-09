@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -7,11 +9,8 @@ import CTASection from '@/components/sections/CTASection';
 import { SettingsProvider } from '@/components/providers/SettingsProvider';
 
 export const dynamic = 'force-dynamic';
-export const metadata = {
-  title: 'Impact Stories | Kowa Namu Ne Foundation',
-  description:
-    'Explore the 2025 impact stories from the Kowa Namu Ne Foundation across economic empowerment, healthcare, and education initiatives in Kaduna North.',
-};
+
+// Note: metadata will be declared in the parent layout if needed
 
 export default function ImpactPage() {
   return (

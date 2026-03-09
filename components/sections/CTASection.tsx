@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight, BookOpen, GraduationCap } from 'lucide-react';
 import { useSiteSettings } from '@/components/providers/SettingsProvider';

@@ -1,3 +1,5 @@
+'use client';
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
@@ -7,10 +9,7 @@ import { SettingsProvider, useSiteSettings } from '@/components/providers/Settin
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Apply for Scholarship',
-  description: 'Apply for JAMB, WAEC, or NECO examination sponsorship from the Kowa Namu Ne Foundation.',
-};
+// Note: metadata defined inline due to 'use client' directive
 
 export default function ApplyPage() {
   return (

@@ -1,3 +1,5 @@
+'use client';
+
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,11 +10,7 @@ import CTASection from '@/components/sections/CTASection';
 import { galleryImages } from '@/data/gallery';
 import { SettingsProvider } from '@/components/providers/SettingsProvider';
 
-export const dynamic = 'force-dynamic';
-export const metadata: Metadata = {
-  title: 'Photo Gallery — Kowa Namu Ne Foundation',
-  description: 'Explore our collection of 199 photos showcasing youth empowerment, community impact, and transformation across Nigeria.',
-};
+// Note: metadata will be declared in the parent layout if needed
 
 export default function GalleryPage() {
   return (

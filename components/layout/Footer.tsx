@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Twitter, Facebook, Instagram } from 'lucide-react';
 import { useSiteSettings } from '@/components/providers/SettingsProvider';

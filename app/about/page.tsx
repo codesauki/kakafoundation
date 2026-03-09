@@ -1,3 +1,5 @@
+'use client';
+
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -6,8 +8,7 @@ import ImpactSection from '@/components/sections/ImpactSection';
 import CTASection from '@/components/sections/CTASection';
 import { SettingsProvider } from '@/components/providers/SettingsProvider';
 
-export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'About the Foundation' };
+// Note: metadata will be declared in the parent layout if needed
 
 const BOARD = [
   { name: 'Hon. Abdulazeez Kaka', role: 'Founder & Chairman of the Board', initials: 'AK' },

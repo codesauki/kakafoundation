@@ -1,3 +1,5 @@
+'use client';
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, BookOpen, GraduationCap, FileText } from 'lucide-react';
@@ -8,7 +10,7 @@ import { SettingsProvider, useSiteSettings } from '@/components/providers/Settin
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = { title: 'Education Portal', description: 'Apply for JAMB, WAEC, and NECO scholarship support from Kowa Namu Ne Foundation.' };
+// Note: metadata defined inline due to 'use client' directive
 
 const STEPS = [
   { icon: FileText, step: '01', title: 'Complete the Form', desc: 'Fill in your personal details, school information, and select which examinations you need support for.' },
