@@ -2,6 +2,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import ImpactSection from '@/components/sections/ImpactSection';
+import ImpactStoriesSection from '@/components/sections/ImpactStoriesSection';
 import ProgrammesSection from '@/components/sections/ProgrammesSection';
 import FounderPreview from '@/components/sections/FounderPreview';
 import GallerySection from '@/components/sections/GallerySection';
@@ -17,6 +18,7 @@ export default function HomePage() {
       <main>
         <HeroSection />
         <ImpactSection />
+        <ImpactStoriesSection />
         <ProgrammesSection />
         <FounderPreview />
         <GallerySection />
