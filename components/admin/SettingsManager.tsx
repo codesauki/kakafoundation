@@ -129,6 +129,8 @@ export default function SettingsManager({ session }: { session: any }) {
             <Key className="w-4 h-4" /> {pwLoading ? 'Updating…' : 'Update Password'}
           </button>
         </div>
+      </div>
+
       {/* Scholarship Applications Toggle */}
       <div className="admin-card p-6 mb-6">
         <div className="flex items-center gap-3 mb-5 pb-2 border-b border-navy-100">
